@@ -37,7 +37,7 @@ const save = (word, def) => {
 
 const get = (word) => {
   return new Promise((res, rej) => {
-    let q = word ? {word: word} : undefined;
+    let q = word ? {word: new RegExp(word, 'i')} : undefined;
     Word.find(q)
     .then((result) => {
       res(result);
@@ -62,9 +62,9 @@ const update = (id, word, def) => {
   });
 };
 
-const remove = (word) => {
+const remove = (id) => {
   return new Promise((res, rej) => {
-    Word.deleteOne({word: word})
+    Word.findByIdAndRemove({_id: id})
     .then(() => {
       res('success');
     })
