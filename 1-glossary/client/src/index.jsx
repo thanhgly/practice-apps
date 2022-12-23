@@ -7,16 +7,16 @@ import {useState, useEffect} from 'react';
 
 const App = (props) => {
 
-
+  const [entries, setEntries] = useState([]);
 
   return (
     <div>
       <h1>Glossary</h1>
       <AddEntry/>
       <SeachEntry/>
-      <EntryList />
+      <EntryList entries={entries}/>
     </div>
   )
 };
 
-ReactDOM.render('Hello world', document.getElementById('root'));
+ReactDOM.render( <App/>, document.getElementById('root'));

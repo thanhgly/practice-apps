@@ -9,11 +9,15 @@ const AddEntry = (props) => {
 
   const handleWordChange = (e) => {
 
-  }
+  };
 
-  cosnt handleDefChange = (e) => {
+  const handleDefChange = (e) => {
 
-  }
+  };
+
+  const handleClick = (e) => {
+
+  };
 
   return (
     <form>
@@ -26,7 +30,9 @@ const AddEntry = (props) => {
         Definition:
         <textarea value={definition} onChange={handleDefChange}/>
       </label>
-      <input />
+      <button onClick={handleClick}>Add</button>
     </form>
   )
 };
+
+export default AddEntry;
