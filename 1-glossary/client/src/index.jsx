@@ -7,13 +7,13 @@ import {useState, useEffect} from 'react';
 
 const App = (props) => {
 
-  const [entries, setEntries] = useState([]);
+  const [entries, setEntries] = useState(['place holder']);
 
   return (
     <div>
       <h1>Glossary</h1>
       <AddEntry/>
-      <SeachEntry/>
+      <SearchEntry/>
       <EntryList entries={entries}/>
     </div>
   )

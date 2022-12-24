@@ -11,7 +11,7 @@ const EntryList = (props) => {
 
   return (
     <div>
-      Entries :
+      <h3> Entries : </h3>
       {entries}
     </div>
   )

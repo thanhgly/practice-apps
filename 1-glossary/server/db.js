@@ -25,7 +25,6 @@ const save = (word, def) => {
     });
     newWord.save()
     .then(() => {
-      console.log('Saved!');
       res('success');
     })
     .catch((err) => {

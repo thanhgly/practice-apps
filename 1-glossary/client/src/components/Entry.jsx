@@ -12,11 +12,11 @@ const Entry = (props) => {
 
   return (
     <div>
-      <h4> {'word'} : </h4>
+      <div>Word</div>
       Definition : {'definition'}
       <div>
         <button onClick={handleEdit} > Edit </button>
-        <butoon onClick={handleDelete} > Delete </butoon>
+        <button onClick={handleDelete} > Delete </button>
       </div>
     </div>
   )

@@ -22,15 +22,17 @@ const AddEntry = (props) => {
   return (
     <form>
       <h3>Add new entry</h3>
-      <label>
-        New word:
+      New word :
+      <div>
         <input type='text' value={word} onChange={handleWordChange}/>
-      </label>
-      <label>
-        Definition:
+      </div>
+      Definition :
+      <div>
         <textarea value={definition} onChange={handleDefChange}/>
-      </label>
-      <button onClick={handleClick}>Add</button>
+      </div>
+      <div>
+        <button onClick={handleClick}>Add</button>
+      </div>
     </form>
   )
 };
