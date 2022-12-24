@@ -150,7 +150,7 @@ describe('server side', function() {
 
   test('POST request to /words', function(done) {
     let entry = {word: 'word', definition: 'definition'};
-    axios.post('http://localhost:3000/words', {entry})
+    axios.post('http://localhost:3000/words', entry)
     .then(() => {
       return db.get('word');
     })
@@ -174,7 +174,7 @@ describe('server side', function() {
       let word = 'edited word';
       let definition = 'edited definition';
       let entry = {_id, word, definition};
-      return axios.put('http://localhost:3000/words', {entry})
+      return axios.put('http://localhost:3000/words', entry)
     })
     .then(() => {
       return db.get('edited word');

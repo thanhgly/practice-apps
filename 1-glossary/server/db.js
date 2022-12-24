@@ -6,7 +6,7 @@ mongoose.connect('mongodb://localhost/' + process.env.DB_NAME);
 
 // 2. Set up any schema and models needed by the app
 const wordSchema = new mongoose.Schema({
-  word: {type: String, unique: true},
+  word: {type: String, unique: true, minLength: 1},
   definition: String,
 });
 
@@ -18,6 +18,7 @@ const Word = mongoose.model('Word', wordSchema);
 // methods
 
 const save = (word, def) => {
+
   return new Promise((res, rej) => {
     let newWord = new Word({
       word: word,

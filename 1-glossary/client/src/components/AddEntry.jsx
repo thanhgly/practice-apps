@@ -4,19 +4,31 @@ import {useState} from 'react';
 
 const AddEntry = (props) => {
 
-  const [word, setWord] = useState('Enter new word');
-  const [definition, setDefinition] = useState('Enter new word definition');
+  const [word, setWord] = useState('');
+  const [definition, setDefinition] = useState('');
 
   const handleWordChange = (e) => {
-
+    setWord(e.target.value);
   };
 
   const handleDefChange = (e) => {
-
+    setDefinition(e.target.value);
   };
 
   const handleClick = (e) => {
-
+    e.preventDefault();
+    props.addEntry(word, definition)
+    .then(() => {
+      return props.getEntries();
+    })
+    .then((data) => {
+      props.setEntries(data);
+      setWord('');
+      setDefinition('');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   };
 
   return (

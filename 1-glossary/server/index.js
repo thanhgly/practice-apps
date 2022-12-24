@@ -22,10 +22,10 @@ app.get('/words', (req, res) => {
 });
 
 app.post('/words', (req, res) => {
-  let {word, definition} = req.body.entry;
+  let {word, definition} = req.body;
   db.save(word, definition)
   .then((response) => {
-    res.status(201).send(response);
+    res.status(201).json({});
   })
   .catch((err) => {
     console.error(err);
@@ -34,10 +34,10 @@ app.post('/words', (req, res) => {
 });
 
 app.put('/words', (req, res) => {
-  let {_id, word, definition} = req.body.entry;
+  let {_id, word, definition} = req.body;
   db.update(_id, word, definition)
   .then((response) => {
-    res.status(200).send(response);
+    res.status(200).json({});
   })
   .catch((err) => {
     console.error(err);
@@ -49,7 +49,7 @@ app.delete('/words', (req, res) => {
   let _id = req.body._id;
   db.remove(_id)
   .then((response) => {
-    res.status(200).send(response);
+    res.status(200).json({});
   })
   .catch((err) => {
     console.error(err);
