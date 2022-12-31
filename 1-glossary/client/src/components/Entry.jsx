@@ -5,8 +5,8 @@ const Entry = (props) => {
   let {_id, word, definition} = props.entry;
 
   const handleEdit = (e) => {
-    let word = prompt('enter new word') || word;
-    let definition = prompt('enter new definition') || definition;
+    let word = prompt('edit term') || word;
+    let definition = prompt('edit definition') || definition;
     props.editEntry(_id, word, definition)
     .then(() => {
       return props.getEntries();
@@ -16,6 +16,7 @@ const Entry = (props) => {
     })
     .catch((err) => {
       console.error(err);
+      alert('Error!');
     });
   };
 
@@ -29,12 +30,13 @@ const Entry = (props) => {
     })
     .catch((err) => {
       console.error(err);
+      alert('Error!');
     });
   };
 
   return (
     <div>
-      <div> Word : {props.entry.word} </div>
+      <div> Term : {props.entry.word} </div>
       <div> Definition : {props.entry.definition} </div>
       <div>
         <button onClick={handleEdit} > Edit </button>

@@ -16,6 +16,7 @@ const SearchEntry = (props) => {
     })
     .catch((err) => {
       console.error(err);
+      alert('Error!');
     });
   };
 

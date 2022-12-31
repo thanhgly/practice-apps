@@ -28,13 +28,14 @@ const AddEntry = (props) => {
     })
     .catch((err) => {
       console.error(err);
+      alert('Error!')
     });
   };
 
   return (
     <form>
       <h3>Add new entry</h3>
-      New word :
+      New term :
       <div>
         <input type='text' value={word} onChange={handleWordChange}/>
       </div>
