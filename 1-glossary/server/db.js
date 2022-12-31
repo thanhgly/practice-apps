@@ -38,7 +38,7 @@ const save = (word, def) => {
 const get = (word) => {
   return new Promise((res, rej) => {
     let q = word ? {word: new RegExp(word, 'i')} : undefined;
-    Word.find(q)
+    Word.find(q).sort({word: 1})
     .then((result) => {
       res(result);
     })
