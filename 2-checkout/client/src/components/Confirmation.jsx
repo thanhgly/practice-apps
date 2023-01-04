@@ -4,6 +4,7 @@ import { useState } from "react";
 const Confirmation = (props) => {
 
   const onClick = (e) => {
+    props.onConfirm();
     props.setPage('home');
   };
 
@@ -29,7 +30,7 @@ const Confirmation = (props) => {
         <p> Credit Card Number : {props.payment.card_number} </p>
         <p> Expiry Date : {props.payment.expiry_date} </p>
         <p> CVV : {props.payment.CVV} </p>
-        <p> Billing zipcode : {props.billing_zipcode} </p>
+        <p> Billing zipcode : {props.payment.billing_zipcode} </p>
       </div>
       <button onClick={onClick}>Purchase</button>
     </div>

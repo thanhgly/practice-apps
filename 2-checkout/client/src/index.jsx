@@ -6,6 +6,9 @@ import FormOne from "./components/FormOne.jsx";
 import FormTwo from "./components/FormTwo.jsx";
 import FormThree from "./components/FormThree.jsx";
 import Confirmation from "./components/Confirmation.jsx";
+import axios from "axios";
+
+const uri = 'http://localhost:3000';
 
 const App = (props) => {
 
@@ -13,7 +16,39 @@ const App = (props) => {
   const [user, setUser] = useState({});
   const [address, setAddress] = useState({});
   const [payment, setPayment] = useState({});
-  const [response, setResponse] = useState({});
+
+  const response = {};
+
+  const Methods = {};
+  Methods.createUser = (user) => axios.post(`${uri}/users`, user);
+  Methods.createAddress = (address) => axios.post(`${uri}/addresses`, address);
+  Methods.createPayment = (payment) => axios.post(`${uri}/payments`, payment);
+  Methods.createResponse = (response) => axios.post(`${uri}/responses`, response);
+
+  const onConfirm = () => {
+    Methods.createUser(user)
+    .then( res => {
+      let id = res.data[0].insertId;
+      response.user_id = id;
+      return Methods.createAddress(address);
+    })
+    .then( res => {
+      let id = res.data[0].insertId;
+      response.address_id = id;
+      return Methods.createPayment(payment);
+    })
+    .then( res => {
+      let id = res.data[0].insertId;
+      response.payment_id = id;
+      return Methods.createResponse(response);
+    })
+    .then( res => {
+      console.log('complete transaction!');
+    })
+    .catch( err => {
+      console.error(err);
+    })
+  };
 
   if (page === 'home') {
     return < Home setPage={setPage} />
@@ -24,7 +59,7 @@ const App = (props) => {
   } else if (page === 'form three') {
     return < FormThree setPage={setPage} setPayment={setPayment} />
   } else if (page === 'confirmation') {
-    return < Confirmation setPage={setPage} user={user} address={address} payment={payment} setResponse={setResponse}/>
+    return < Confirmation setPage={setPage} user={user} address={address} payment={payment} onConfirm={onConfirm} />
   }
 };
 

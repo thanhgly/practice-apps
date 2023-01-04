@@ -28,9 +28,9 @@ db.connectAsync()
       "CREATE TABLE IF NOT EXISTS addresses ( id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, \
                                               address_1 VARCHAR(25) NOT NULL, \
                                               address_2 VARCHAR(25), \
-                                              city VARCHAR(20) NOT NULL, \
-                                              state VARCHAR(20) NOT NULL, \
-                                              zipcode VARCHAR(20) NOT NULL, \
+                                              city VARCHAR(25) NOT NULL, \
+                                              state VARCHAR(25) NOT NULL, \
+                                              zipcode VARCHAR(25) NOT NULL, \
                                               phone_number VARCHAR(25) NOT NULL )"
     )
   )
@@ -38,9 +38,9 @@ db.connectAsync()
     db.queryAsync(
       "CREATE TABLE IF NOT EXISTS payments ( id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, \
                                              card_number VARCHAR(25) NOT NULL, \
-                                             expiry_date VARCHAR(5) NOT NULL, \
-                                             CVV VARCHAR(3) NOT NULL, \
-                                             billing_zipcode VARCHAR(10) )"
+                                             expiry_date VARCHAR(25) NOT NULL, \
+                                             CVV VARCHAR(25) NOT NULL, \
+                                             billing_zipcode VARCHAR(25) )"
     )
   )
   .then(() =>
