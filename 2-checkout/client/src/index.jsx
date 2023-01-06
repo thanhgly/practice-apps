@@ -27,15 +27,27 @@ const App = (props) => {
   Methods.getResponse = (user) => axios.get(`${uri}/responses`, {params: {email: user}});
 
   const onConfirm = () => {
-    Methods.createUser(user)
-    .catch((err) => {
-      console.log('User exists!')
-    })
-    .then(() => {
-      return Methods.getResponse(user.email);
+    return Methods.getResponse(user.email)
+    .then((response) => {
+      console.log(response);
+      let data = response.data[0];
+      if (data.length) {
+        for (let i = 0; i < data.length; i++) {
+          let email = data[i].email;
+          let session_id = data[i].session_id;
+          if (email === user.email && session_id === document.cookie.slice(5)) {
+            throw new Error('This user already checkout!');
+          }
+        }
+        return data[0].user_id;
+      }
+      return Methods.createUser(user)
+            .then((response) => {
+              return response.data[0].insertId;
+            });
     })
     .then( res => {
-      let id = res.data[0][0].user_id;
+      let id = res;
       response.user_id = id;
       return Methods.createAddress(address);
     })
@@ -51,11 +63,7 @@ const App = (props) => {
     })
     .then( res => {
       alert('Transaction completed!');
-    })
-    .catch( err => {
-      console.error(err);
-      alert('ERROR!');
-    })
+    });
   };
 
   if (page === 'home') {
