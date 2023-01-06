@@ -24,11 +24,18 @@ const App = (props) => {
   Methods.createAddress = (address) => axios.post(`${uri}/addresses`, address);
   Methods.createPayment = (payment) => axios.post(`${uri}/payments`, payment);
   Methods.createResponse = (response) => axios.post(`${uri}/responses`, response);
+  Methods.getResponse = (user) => axios.get(`${uri}/responses`, {params: {email: user}});
 
   const onConfirm = () => {
     Methods.createUser(user)
+    .catch((err) => {
+      console.log('User exists!')
+    })
+    .then(() => {
+      return Methods.getResponse(user.email);
+    })
     .then( res => {
-      let id = res.data[0].insertId;
+      let id = res.data[0][0].user_id;
       response.user_id = id;
       return Methods.createAddress(address);
     })
@@ -43,10 +50,11 @@ const App = (props) => {
       return Methods.createResponse(response);
     })
     .then( res => {
-      console.log('complete transaction!');
+      alert('Transaction completed!');
     })
     .catch( err => {
       console.error(err);
+      alert('ERROR!');
     })
   };
 
@@ -59,7 +67,7 @@ const App = (props) => {
   } else if (page === 'form three') {
     return < FormThree setPage={setPage} setPayment={setPayment} />
   } else if (page === 'confirmation') {
-    return < Confirmation setPage={setPage} user={user} address={address} payment={payment} onConfirm={onConfirm} />
+    return < Confirmation setPage={setPage} user={user} address={address} payment={payment} onConfirm={onConfirm} Methods={Methods}/>
   }
 };
 

@@ -4,8 +4,24 @@ import { useState } from "react";
 const Confirmation = (props) => {
 
   const onClick = (e) => {
-    props.onConfirm();
-    props.setPage('home');
+    props.Methods.getResponse(props.user.email)
+    .then((response) => {
+      if (response.data[0] !== undefined) {
+        let email = response.data[0][0].email;
+        let session_id = response.data[0][0].session_id;
+        if (email === props.user.email && session_id === document.cookie.slice(5)) {
+          throw new Error('This user already checkout!');
+        }
+      }
+
+      return props.onConfirm();
+    })
+    .then(() => {
+      props.setPage('home');
+    })
+    .catch((err) => {
+      alert(err);
+    })
   };
 
   return (

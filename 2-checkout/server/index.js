@@ -17,6 +17,7 @@ app.use(sessionHandler);
 app.use(logger);
 
 app.use(express.json());
+app.use(express.urlencoded({extended: true}))
 
 // Serves up all static and generated assets in ../client/dist.
 app.use(express.static(path.join(__dirname, "../client/dist")));
@@ -28,6 +29,17 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
  *
  *
  */
+
+app.get('/responses', (req, res) => {
+  let user = req.query.email;
+  db.getResponse(user)
+  .then((data) => {
+    res.send(data);
+  })
+  .catch((err) => {
+    res.sendStatus(404);
+  })
+});
 
 app.post('/users', (req, res) => {
   let user = req.body;
